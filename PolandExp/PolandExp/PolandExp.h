@@ -25,10 +25,13 @@ public:
 	ExpTree() :_root(nullptr){}
 	void setRoot(Node* root){ _root = root; }
 	Node* parse(ITER begin, ITER end);
-	void skip(ITER it); //Ìø¹ýÀ¨ºÅ
+	void skip(ITER &it); //Ìø¹ýÀ¨ºÅ
 	int convertToInt(ITER begin, ITER end);
+	void printDLR(Node *root);
+	void printLDR(Node *root);
+	void printLRD(Node *root);
 	void printDLR();
-	void printLDR();
+	void printLDR(){ printLDR(_root); cout << endl; }
 	void printLRD();
 private:
 	Node *_root;
