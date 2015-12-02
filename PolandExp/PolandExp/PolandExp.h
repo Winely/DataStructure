@@ -17,7 +17,7 @@ private:
 };
 
 
-string aa;
+string aa="a";
 typedef decltype(aa.begin()) ITER;
 
 class ExpTree{
