@@ -66,7 +66,7 @@ Node* ExpTree::parse(ITER begin, ITER end)
 	return root;
 }
 
-void ExpTree::printLDR(Node* root)
+void ExpTree::printLDR(Node* root)	//中序输出
 {
 	if (root->_data >= 0)	//如果是数字则直接输出
 	{
@@ -95,7 +95,7 @@ void ExpTree::printLDR(Node* root)
 			L; printLDR(root->_left); R;
 		}
 		else printLDR(root->_left);
-		cout << ((root->_data == MULTI) ? "*" : "/");
+		cout << (root->_data == MULTI ? "*" : "/");
 		if (next == PLUS || next == MINUS || (root->_data == DIVI && next == DIVI))
 		{
 			L; printLDR(root->_right); R;
@@ -107,6 +107,48 @@ void ExpTree::printLDR(Node* root)
 	}
 }
 
+void ExpTree::printDLR(Node* root)
+{
+	int data(root->_data);
+	if (data >= 0)
+	{
+		cout <<data;
+		return;
+	}
+	switch (data)
+	{
+	case PLUS:	cout << '+'; break;
+	case MINUS:	cout << '-'; break;
+	case MULTI:	cout << '*'; break;
+	case DIVI:	cout << '/'; break;
+	default:
+		break;
+	}
+	printDLR(root->_left);
+	printDLR(root->_right);
+}
+
+void ExpTree::printLRD(Node* root)
+{
+	int data(root->_data);
+	if (data >= 0)
+	{
+		cout << data;
+		return;
+	}
+	printLRD(root->_left);
+	printLRD(root->_right);
+	switch (data)
+	{
+	case PLUS:	cout << '+'; break;
+	case MINUS:	cout << '-'; break;
+	case MULTI:	cout << '*'; break;
+	case DIVI:	cout << '/'; break;
+	default:break;
+	}
+	return;
+}
+
 int main()
 {
 	ExpTree exptree;
@@ -115,8 +157,12 @@ int main()
 	cin >> a;
 	aa += a;
 	exptree.setRoot(exptree.parse(aa.begin(), aa.end()-1));
-	cout << "The expression is:\t\t";
+	cout << "波兰表达式:\t\t";
+	exptree.printDLR();
+	cout << "中缀表达式:\t\t";
 	exptree.printLDR();
+	cout << "逆波兰表达式:\t\t";
+	exptree.printLRD();
 	system("pause");
 	return 0;
 }

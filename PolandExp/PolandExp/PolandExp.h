@@ -16,7 +16,6 @@ private:
 	Node *_left, *_right;
 };
 
-
 string aa="a";
 typedef decltype(aa.begin()) ITER;
 
@@ -27,12 +26,12 @@ public:
 	Node* parse(ITER begin, ITER end);
 	void skip(ITER &it); //跳过括号
 	int convertToInt(ITER begin, ITER end);
-	void printDLR(Node *root);
-	void printLDR(Node *root);
-	void printLRD(Node *root);
-	void printDLR();
+	void printDLR(Node *root);//前序输出
+	void printLDR(Node *root);//中序输出
+	void printLRD(Node *root);//后序输出
+	void printDLR(){ printLRD(_root); cout << endl; }
 	void printLDR(){ printLDR(_root); cout << endl; }
-	void printLRD();
+	void printLRD(){ printLRD(_root); cout << endl; }
 private:
 	Node *_root;
 };
