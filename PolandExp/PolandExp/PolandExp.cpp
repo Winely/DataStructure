@@ -73,7 +73,7 @@ void ExpTree::printLDR(Node* root)	//中序输出
 		cout << root->_data; 
 		return;
 	}
-	int next = root->_right->_data;
+	int lnext = root->_left->_data, rnext = root->_right->_data;
 	switch (root->_data)
 	{
 	case PLUS:		//加法直接输出
@@ -83,20 +83,20 @@ void ExpTree::printLDR(Node* root)	//中序输出
 	case MINUS:	
 		printLDR(root->_left);
 		cout << '-';
-		if (next == PLUS || next == MINUS)//后方为减法则括号输出
+		if (rnext == PLUS || rnext == MINUS)//后方为减法则括号输出
 		{
 			L; printLDR(root->_right); R;
 		}
 		else printLDR(root->_right);
 		return;
 	case MULTI: case DIVI:
-		if (next == PLUS || next == MINUS)//前方为加减法括号输出
+		if (lnext == PLUS || lnext == MINUS)//前方为加减法括号输出
 		{
 			L; printLDR(root->_left); R;
 		}
 		else printLDR(root->_left);
 		cout << (root->_data == MULTI ? "*" : "/");
-		if (next == PLUS || next == MINUS || (root->_data == DIVI && next == DIVI))
+		if (rnext == PLUS || rnext == MINUS || (root->_data == DIVI && rnext == DIVI))
 		{
 			L; printLDR(root->_right); R;
 		}
@@ -112,7 +112,11 @@ void ExpTree::printDLR(Node* root)
 	int data(root->_data);
 	if (data >= 0)
 	{
-		cout <<data;
+		if (data >= 10)
+		{
+			L; cout << data; R;
+		}
+		else cout << data;
 		return;
 	}
 	switch (data)
@@ -133,7 +137,11 @@ void ExpTree::printLRD(Node* root)
 	int data(root->_data);
 	if (data >= 0)
 	{
-		cout << data;
+		if (data >= 10)
+		{
+			L; cout << data; R;
+		}
+		else cout << data;
 		return;
 	}
 	printLRD(root->_left);
@@ -152,12 +160,12 @@ void ExpTree::printLRD(Node* root)
 int main()
 {
 	ExpTree exptree;
-	cout << "Please input the expression: \t";
+	cout << "请输入表达式:\t\t";
 	string a;
 	cin >> a;
 	aa += a;
 	exptree.setRoot(exptree.parse(aa.begin(), aa.end()-1));
-	cout << "波兰表达式:\t\t";
+	cout << endl << "波兰表达式:\t\t";
 	exptree.printDLR();
 	cout << "中缀表达式:\t\t";
 	exptree.printLDR();

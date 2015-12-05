@@ -29,9 +29,9 @@ public:
 	void printDLR(Node *root);//前序输出
 	void printLDR(Node *root);//中序输出
 	void printLRD(Node *root);//后序输出
-	void printDLR(){ printLRD(_root); cout << endl; }
-	void printLDR(){ printLDR(_root); cout << endl; }
-	void printLRD(){ printLRD(_root); cout << endl; }
+	void printDLR(){ printLRD(_root); cout << endl << endl; }
+	void printLDR(){ printLDR(_root); cout << endl << endl; }
+	void printLRD(){ printLRD(_root); cout << endl << endl; }
 private:
 	Node *_root;
 };
