@@ -52,6 +52,7 @@ int Graph::getRoot(int node)
 void Graph::generateMST()
 {
 	sort(edge.begin(), edge.end());
+	int num(0);
 	for (auto &p : edge) p.selected = false;
 	for (auto &p : edge)
 	{
@@ -59,6 +60,7 @@ void Graph::generateMST()
 		if (getRoot(p.from) == getRoot(p.to)) continue;
 		p.selected = true;
 		parent[p.from] = getRoot(p.to);
+		num++;
 	}
 }
 
@@ -78,9 +80,8 @@ int main()
 	cout << "==================================" << endl;
 	cout << "1 - add vertex" << endl;
 	cout << "2 - add edge" << endl;
-	cout << "3 - create MST" << endl;
-	cout << "4 - show MST" << endl;
-	cout << "5 - quit" << endl;
+	cout << "3 - create and show MST" << endl;
+	cout << "4 - quit" << endl;
 	cout << "==================================" << endl << endl;
 
 	int op;
@@ -90,7 +91,7 @@ int main()
 		cout << "please input the operation: ";
 		cin.sync(); cin.clear();
 		cin >> op;
-		if (op == 5) break;
+		if (op == 4) break;
 		switch (op)
 		{
 		case 1:{
@@ -119,10 +120,9 @@ int main()
 		   }}
 			break;
 		case 3:
-			graph.generateMST();
-		case 4:
-			graph.printMST();
-		default:
+			graph.generateMST(); 
+			graph.printMST(); break;
+		default:cout << "Undefined operation. Please enter again." << endl;
 			break;
 		}
 		cout << "！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！" << endl;
