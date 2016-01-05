@@ -261,11 +261,11 @@ int* DataList::radixSort()
 
 void DataList::print(int* data)
 {
-	int count = 10;
+	int count = 9;
 	for (int i = 0; i < num; i++)
 	{
 		cout << data[i];
-		if (count == 0){ cout << endl; count = 10; }
+		if (count == 0){ cout << endl; count = 9; }
 		else { cout << "\t"; count--; }
 	}
 	cout << endl << endl;
